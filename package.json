@@ -1,0 +1,25 @@
+{
+  "name": "bw_rta_B_End",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sweyome/bw_rta_B_End.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sweyome/bw_rta_B_End/issues"
+  },
+  "homepage": "https://github.com/sweyome/bw_rta_B_End#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.2"
+  }
+}
