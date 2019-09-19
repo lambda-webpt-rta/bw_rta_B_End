@@ -1,44 +1,44 @@
 const express = require('express');
 
-const Recipe = require('./recipe-model.js');
+const Receipt = require('./receipt-model.js');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    Recipe.find()
-  .then(recipe => {
-    res.json(recipe);
+  Receipt.find()
+  .then(receipt => {
+    res.json(receipt);
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to get Recipe' });
+    res.status(500).json({ message: 'Failed to get Receipt' });
   });
 });
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
-  Recipe.findById(id)
-  .then(recipe => {
-    if (recipe) {
-      res.json(recipe);
+  Receipt.findById(id)
+  .then(receipt => {
+    if (receipt) {
+      res.json(receipt);
     } else {
-      res.status(404).json({ message: 'Could not find Recipe with given id.' })
+      res.status(404).json({ message: 'Could not find Receipt with given id.' })
     }
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to get Recipe' });
+    res.status(500).json({ message: 'Failed to get Receipt' });
   });
 });
 
 router.get('/:id/steps', (req, res) => {
   const { id } = req.params;
 
-  Recipe.findSteps(id)
+  Receipt.findSteps(id)
   .then(steps => {
     if (steps.length) {
       res.json(steps);
     } else {
-      res.status(404).json({ message: 'Could not find steps for given Recipe' })
+      res.status(404).json({ message: 'Could not find steps for given Receipt' })
     }
   })
   .catch(err => {
@@ -49,12 +49,12 @@ router.get('/:id/steps', (req, res) => {
 router.post('/', (req, res) => {
   const recipeData = req.body;
 
-  Recipe.add(recipeData)
+  Receipt.add(recipeData)
   .then(recipe => {
     res.status(201).json(recipe);
   })
   .catch (err => {
-    res.status(500).json({ message: 'Failed to create new Recipe' });
+    res.status(500).json({ message: 'Failed to create new Receipt' });
   });
 });
 
@@ -62,15 +62,15 @@ router.post('/:id/steps', (req, res) => {
   const stepData = req.body;
   const { id } = req.params; 
 
-  Recipe.findById(id)
-  .then(recipe => {
-    if (recipe) {
-        recipe.addStep(stepData, id)
+  Receipt.findById(id)
+  .then(receipt => {
+    if (receipt) {
+        receipt.addStep(stepData, id)
       .then(step => {
         res.status(201).json(step);
       })
     } else {
-      res.status(404).json({ message: 'Could not find Recipe with given id.' })
+      res.status(404).json({ message: 'Could not find Receipt with given id.' })
     }
   })
   .catch (err => {
@@ -82,31 +82,31 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  Recipe.findById(id)
-  .then(recipe => {
-    if (recipe) {
-        Recipe.update(changes, id)
-      .then(updatedRecipe => {
-        res.json(updatedRecipe);
+  Receipt.findById(id)
+  .then(receipt => {
+    if (receipt) {
+        receipt.update(changes, id)
+      .then(updatedReceipt => {
+        res.json(updatedReceipt);
       });
     } else {
-      res.status(404).json({ message: 'Could not find Recipe with given id' });
+      res.status(404).json({ message: 'Could not find Receipt with given id' });
     }
   })
   .catch (err => {
-    res.status(500).json({ message: 'Failed to update Recipe' });
+    res.status(500).json({ message: 'Failed to update Receipt' });
   });
 });
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
-  Recipe.remove(id)
+  Receipt.remove(id)
   .then(deleted => {
     if (deleted) {
       res.json({ removed: deleted });
     } else {
-      res.status(404).json({ message: 'Could not find Recipe with given id' });
+      res.status(404).json({ message: 'Could not find Receipt with given id' });
     }
   })
   .catch(err => {

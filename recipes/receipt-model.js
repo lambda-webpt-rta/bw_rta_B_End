@@ -11,37 +11,37 @@ module.exports = {
 }
 
 function find(){
-    return db('recipe')
+    return db('receipt')
 }
 
 function findById(id) {
-    return db('recipe')
+    return db('receipt')
         .where({ id });
 }
 
 function findSteps(id) {
     return db('steps')
-        .where({ recipe_id: id });
+        .where({ receipt_id: id });
 }
 
-function add({ recipe_name }) {
-    return db('recipe').insert({ recipe_name });
+function add({ receipt_name }) {
+    return db('receipt').insert({ receipt_name });
 }
 
-function update({ recipe_name }, id) {
-    return db('recipe')
+function update({ receipt_name }, id) {
+    return db('receipt')
         .where({ id })
-        .update({ recipe_name })
+        .update({ receipt_name })
 }
 
 function remove(id) {
-    return db('recipe')
+    return db('receipt')
         .where({ id })
         .del()
 }
 function addStep({ instructions, step_number }, id) {
     return db('steps')
-        .insert({ instructions, step_number, recipe_id: id })
+        .insert({ instructions, step_number, receipt_id: id })
 }
 
 
