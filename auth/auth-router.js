@@ -1,12 +1,12 @@
-const router = require("express").Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const router = require('express').Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const secrets = require("../config/secrets.js");
+const secrets = require('../config/secrets.js');
 
-const Users = require("../users/users-model.js");
+const Users = require('../users/users-model.js');
 
-router.post("/register", (req, res) => {
+router.post('/register', (req, res) => {
   // implement registration
 
   if (req.body.username && req.body.password) {
@@ -20,15 +20,15 @@ router.post("/register", (req, res) => {
       })
       .catch(err => {
         res.status(500).json({
-          message: "There was an error while trying to add that user."
+          message: 'There was an error while trying to add that user.'
         });
       });
   } else {
-    res.status(400).json({ message: "Please enter a username and password." });
+    res.status(400).json({ message: 'Please enter a username and password.' });
   }
 });
 
-router.post("/login", (req, res) => {
+router.post('/login', (req, res) => {
   // implement login
   if (req.body.username && req.body.password) {
     let { username, password } = req.body;
@@ -43,7 +43,7 @@ router.post("/login", (req, res) => {
         }
       });
   } else {
-    res.status(400).json({ message: "Please enter a username and password." });
+    res.status(400).json({ message: 'Please enter a username and password.' });
   }
 });
 
@@ -53,7 +53,7 @@ function createToken(user) {
     username: user.username
   };
   const options = {
-    expiresIn: "1d"
+    expiresIn: '1d'
   };
   return jwt.sign(payload, secrets.jwtSecretrs, options);
 }
