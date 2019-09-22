@@ -6,7 +6,7 @@ const secrets = require('../config/secrets.js');
 
 const Users = require('../users/users-model.js');
 
-router.post('/register', (req, res) => {
+router.post('/api/register', (req, res) => {
   // implement registration
 
   if (req.body.username && req.body.password) {
@@ -15,8 +15,12 @@ router.post('/register', (req, res) => {
     user.password = hash; // reset password as hashed password
 
     Users.addUser(user)
-      .then(newUser => {
-        res.status(201).json(newUser);
+      .then(saved => {
+        const token = createToken(saved)
+        res.status(201).json({
+          user:saved,
+        token
+      });
       })
       .catch(err => {
         res.status(500).json({
@@ -55,7 +59,7 @@ function createToken(user) {
   const options = {
     expiresIn: '1d'
   };
-  return jwt.sign(payload, secrets.jwtSecretrs, options);
+  return jwt.sign(payload, process.env.jwtSecret, options);
 }
 
 module.exports = router;

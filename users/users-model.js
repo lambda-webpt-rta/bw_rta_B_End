@@ -1,24 +1,49 @@
-const db = require("../data/db-config");
+const db = require('../data/db-config');
 
 module.exports = {
-  addUser,
-  findUser,
-  findBy
+  find,
+  findById,
+  findReceipt,
+  add,
+  update,
+  remove
 };
 
-async function addUser(user) {
-  const [id] = await db("users").insert(user);
-  return findUser(id);
+function find() {
+  return db('users');
 }
 
-function findUser(id) {
-  return db("users")
-    .where({ id })
-    .select("id", "username", "password")
-    .orderBy("id")
-    .first();
+// resolves to a single user OR null
+function findById(id) {
+  return db('users').where({ id }).first();
 }
 
-function findBy(filter) {
-  return db("users").where(filter);
+// SELECT r.id, r.contents, u.username FROM Receipt AS r
+// JOIN users AS u ON r.user_id = u.id; 
+function findReceipt(user_id) {
+  return db('receipt as r')
+    .join('users as u', 'u.id', 'r.user_id')
+    .select('r.id', 'r.contents', 'u.username')
+    .where({ user_id });
+}
+
+// resolves to newly created user
+function add(user) {
+  return db('users').insert(user)
+  .then(ids => {
+    return findById(ids[0]);
+  });
+}
+
+// resolves to updated user
+function update(changes, id) {
+  return db('users').where({ id }).update(changes)
+  .then(count => {
+    return findById(id);
+  });
+}
+
+// resolves to a count
+function remove(id) {
+  return db('users').where({ id }).del();
 }
