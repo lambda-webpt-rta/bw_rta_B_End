@@ -47,11 +47,11 @@ router.get('/:id/steps', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const recipeData = req.body;
+  const receiptData = req.body;
 
-  Receipt.add(recipeData)
-  .then(recipe => {
-    res.status(201).json(recipe);
+  Receipt.add(receiptData)
+  .then(receipt => {
+    res.status(201).json(receipt);
   })
   .catch (err => {
     res.status(500).json({ message: 'Failed to create new Receipt' });

@@ -4,17 +4,17 @@ const jwt = require('jsonwebtoken');
 
 const secrets = require('../config/secrets.js');
 
-const Users = require('../users/users-model.js');
+const Users = require('../users/users-model');
 
-router.post('/api/register', (req, res) => {
+router.post('/register', (req, res) => {
   // implement registration
 
-  if (req.body.username && req.body.password) {
+  if (req.body.username && req.body.password && req.body.email) {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 10); // hash the password
     user.password = hash; // reset password as hashed password
 
-    Users.addUser(user)
+    Users.add(user)
       .then(saved => {
         const token = createToken(saved)
         res.status(201).json({
