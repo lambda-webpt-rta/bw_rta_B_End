@@ -3,6 +3,7 @@ exports.up = function(knex) {
   return knex.schema.createTable("receipt",(table) =>{
       table.increments();
       table.timestamp(true,false);
+      table.string('amount',255);
 
   })
 };

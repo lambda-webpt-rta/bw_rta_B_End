@@ -3,6 +3,7 @@ const db = require('../data/db-config');
 module.exports = {
   find,
   findById,
+  findBy,
   findReceipt,
   add,
   update,
@@ -25,6 +26,10 @@ function findReceipt(user_id) {
     .join('users as u', 'u.id', 'r.user_id')
     .select('r.id', 'r.contents', 'u.username')
     .where({ user_id });
+}
+function findBy(filter) {
+  console.log(filter);
+  return db('users').where(filter);
 }
 
 // resolves to newly created user
