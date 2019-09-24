@@ -17,9 +17,11 @@ router.post('/register', (req, res) => {
     Users.add(user)
       .then(saved => {
         const token = createToken(saved)
+        console.log('token ', token);
+        
         res.status(201).json({
           user:saved,
-        token
+          token:token
       });
       })
       .catch(err => {
@@ -59,7 +61,7 @@ function createToken(user) {
   const options = {
     expiresIn: '1d'
   };
-  return jwt.sign(payload, process.env.jwtSecret, options);
+  return jwt.sign(payload, 'secrets', options);
 }
 
 module.exports = router;

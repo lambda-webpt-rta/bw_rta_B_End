@@ -5,6 +5,7 @@ const receiptRouter = express.Router();
 
 const authRouter = require('../auth/auth-router');
 const userRouter = require('../users/userRouter');
+const receiptR = require('../receipt/receipt-router')
 
 const server = express();
 
@@ -14,7 +15,7 @@ server.use(express.json());
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', userRouter);
-// server.use('/api/receipt', authenticate, receiptRouter);
+server.use('/api/receipt', receiptR);
 
 server.get('/',  (req,res) =>{
     res.send('hello, your server is running')
