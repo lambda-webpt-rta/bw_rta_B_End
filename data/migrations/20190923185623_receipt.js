@@ -8,11 +8,11 @@ exports.up = function(knex) {
       .inTable('users')
       .index()
       .onDelete('CASCADE');
-      
-      table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.timestamp('receipt_date').defaultTo(knex.fn.now());
       table.string('amount',255)
       .notNullable();
-      
+      table.text('receipt_url');
+    
   })
   
 };
