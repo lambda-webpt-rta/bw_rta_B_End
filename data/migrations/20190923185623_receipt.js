@@ -10,7 +10,8 @@ exports.up = function(knex) {
       .onDelete('CASCADE');
       
       table.timestamp(true,false);
-      table.string('amount',255);
+      table.string('amount',255)
+      .notNullable();
       
   })
 };
