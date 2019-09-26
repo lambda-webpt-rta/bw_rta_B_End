@@ -1,31 +1,31 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
+const upload = require('multer');
 const router = express();
 
-// default options
-router.use(fileUpload());
+// set upload engine
 
-router.post('/upload', function(req, res) {
-    let sampleFile;
-    let uploadPath;
-  
-    if (!req.files || Object.keys(req.files).length === 0) {
-      res.status(400).send('No files were uploaded.');
-      return;
+const storage = multer.diskStorage({
+    destination:'/bw_rta_backend/data',
+    filename:function(req,file,cb){
+        cb(null,file.filename + '-'+ Date.now() +
+        Path.extname(fine.originalname));
     }
-  
-    console.log('req.files >>>', req.files); // eslint-disable-line
-  
-    sampleFile = req.files.sampleFile;
-  
-    uploadPath = __dirname + '/uploads/' + sampleFile.name;
-  
-    sampleFile.mv("/bw_rta_backend/data", function(err) {
-      if (err) {
-        return res.status(500).send(err);
-      }
-  
-      res.send('File uploaded to ' + uploadPath);
-    });
-  });
+})
+// init upload
+const upload = multer({
+    storage:storage
+}).single('receipt_url')
+
+router.post('/upload',(req,res) =>{
+    upload(req,res,(err) =>{
+        if(err){
+            res.render('index',{
+
+            })
+        }else{
+            console.log(req.file);
+            res.send('file uploaded')
+        }
+    })
+})
 module.exports = router;
