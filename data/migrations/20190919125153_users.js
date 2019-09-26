@@ -12,7 +12,7 @@ exports.up = function(knex) {
       .notNullable()
       .unique()
       users
-      .timestamps(true,true);
+      .timestamps(true,false);
     });
   };
   

@@ -9,11 +9,12 @@ exports.up = function(knex) {
       .index()
       .onDelete('CASCADE');
       
-      table.timestamp(true,false);
+      table.timestamp('created_at').defaultTo(knex.fn.now());
       table.string('amount',255)
       .notNullable();
       
   })
+  
 };
 
 exports.down = function(knex) {

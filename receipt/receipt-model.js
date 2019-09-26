@@ -28,10 +28,10 @@ function add(receipt) {
     return db('receipt').insert(receipt );
 }
 
-function update({ receipt_name }, id) {
+function update(receipt , id) {
     return db('receipt')
         .where({ id })
-        .update({ receipt_name })
+        .update(receipt )
 }
 
 function remove(id) {
