@@ -24,8 +24,8 @@ function findSteps(id) {
         .where({ receipt_id: id });
 }
 
-function add({ receipt_name }) {
-    return db('receipt').insert({ receipt_name });
+function add({ receipt }) {
+    return db('receipt').insert({ receipt });
 }
 
 function update({ receipt_name }, id) {
