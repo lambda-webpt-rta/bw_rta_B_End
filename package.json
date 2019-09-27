@@ -21,8 +21,10 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",
+    "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6-alpha.5",
+    "file-system": "^2.2.2",
     "helmet": "^3.21.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.19.4",
